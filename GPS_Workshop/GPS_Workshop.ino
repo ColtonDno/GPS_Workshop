@@ -214,10 +214,10 @@ void loop() {
 
   SerialMon.print(F("Body length is: "));
   SerialMon.println(body.length());
-  //for(;;){delay(1000);}
+  for(;;){delay(1000);}
 
   //Wait until at least a minute has passed before looping
-  while (millis() - timer < 10000)
+  /*while (millis() - timer < 30000)
     delay(1000);
-  timer = millis();
+  timer = millis();*/
 }
