@@ -97,6 +97,8 @@ void printGPS(struct GPSData data)
   return;
 }
 
+float timer = millis();
+
 void setup() {
   SerialMon.begin(115200);
   delay(10);
@@ -133,7 +135,7 @@ void setup() {
 void loop() {
   SerialMon.println("Looping");
 
-  if (!modem.gprsConnect(apn)) {
+  if (!modem.gprsConnect("iot.truphone.com")) {
     SerialMon.println("Failed GRPS setup");
     delay(1000);
     return;
@@ -170,7 +172,7 @@ void loop() {
 
   delay(1000);
 
-  String httpRequestData = "api_key=" + apiKeyValue + "&latitude=" + String(gpsData.latitude, 6) + "&longitude=" + String(gpsData.longitude,6) + "&speed=" + String(gpsData.speed,3) + "&accuracy=" + String(gpsData.accuracy,4) + "&device_id" + device_id + "";
+  String httpRequestData = "api_key=" + apiKeyValue + "&latitude=" + String(gpsData.latitude, 6) + "&longitude=" + String(gpsData.longitude,6) + "&speed=" + String(gpsData.speed,3) + "&accuracy=" + String(gpsData.accuracy,4) + "&device_id=" + device_id + "";
   SerialMon.println(httpRequestData);
   String contentType = "application/x-www-form-urlencoded";
   SerialMon.print(F("Performing HTTP POST request... "));
@@ -212,9 +214,8 @@ void loop() {
 
   SerialMon.print(F("Body length is: "));
   SerialMon.println(body.length());
-  for(;;){delay(1000);}
+  //for(;;){delay(1000);}
 
-  static float timer = millis();
   //Wait until at least a minute has passed before looping
   while (millis() - timer < 10000)
     delay(1000);
