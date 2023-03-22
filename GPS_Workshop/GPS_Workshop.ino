@@ -35,8 +35,8 @@ String resource = "/post_lte.php";
 String apiKeyValue = "rmf2dJYgD3F4Egvds5S42s";
 String uptime_resource = "/device_startup.php";
 
-char apn[] = "h2g2";
-String device_id = "Ayo";
+char apn[] = "h2g2";//Google fi apn, replace with your apn
+String device_id = "Enter a Device ID";
 
 TinyGsmClient client(modem, 0);
 HttpClient    http(client, server, 80);
@@ -135,7 +135,7 @@ void setup() {
 void loop() {
   SerialMon.println("Looping");
 
-  if (!modem.gprsConnect("iot.truphone.com")) {
+  if (!modem.gprsConnect(apn)) {
     SerialMon.println("Failed GRPS setup");
     delay(1000);
     return;
